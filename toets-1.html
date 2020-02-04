@@ -1,0 +1,45 @@
+<html>
+    <body>
+        <canvas id="canvas" width="800" height="600"></canvas>
+        <script src="./robot-arm.js"></script>
+        <script>
+            var canvas = document.getElementById("canvas");
+            var robotArm = new RobotArm(canvas);
+            robotArm.examLevel(1);
+            robotArm.speed = 600;
+            function start(wit, kleur, niks) {
+                for (var t = 1; t <= 4; t++) {
+                    robotArm.moveRight();
+                }
+                for (var p = 1; p <= 8; p++) {
+                    robotArm.grab();
+                    wit = robotArm.scan();
+                    niks = robotArm.scan();
+                    kleur = robotArm.scan();
+                    if (niks === null) {
+                        return;
+                    } else if (wit === "white") {
+                        for (var y = 1; y <= 4; y++) {
+                            robotArm.moveLeft();
+                        }
+                        robotArm.drop();
+                        for (var q = 1; q <= 4; q++) {
+                            robotArm.moveRight();
+                        }
+                    } else if (kleur === "red" || "blue" || "green") {
+                        for (var w = 1; w <= 5; w++) {
+                            robotArm.moveRight();
+                        }
+                        robotArm.drop();
+                        for (var g = 1; g <= 5; g++) {
+                            robotArm.moveLeft();
+                        }
+                    }
+                }
+            }
+
+            start();
+            robotArm.run();
+        </script>
+    </body>
+</html>
